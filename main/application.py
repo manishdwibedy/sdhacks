@@ -11,6 +11,7 @@ from flask import Flask, render_template, request
 import json
 import requests
 from config import Config
+from esign import sign
 
 # Elastic Beanstalk initalization
 app = Flask(__name__)
@@ -82,69 +83,6 @@ def eye_color():
 
 @app.route('/sign-doc')
 def signDoc():
-    doc = {
-        "documents": [
-            {
-                "documentBase64": "FILE1_BASE64",
-                "documentId": "1",
-                "fileExtension": "pdf",
-                "name": "NDA.pdf"
-            }
-        ],
-        "emailSubject": "Please sign the NDA",
-        "recipients": {
-            "signers": [
-                {
-                    "email": "dwibedy@usc.edu",
-                    "name": "Chris",
-                    "recipientId": "1",
-                    "routingOrder": "1",
-                    "tabs": {
-                        "dateSignedTabs": [
-                            {
-                                "anchorString": "signer1date",
-                                "anchorYOffset": "-6",
-                                "fontSize": "Size12",
-                                "name": "Date Signed",
-                                "recipientId": "1",
-                                "tabLabel": "date_signed"
-                            },
-                        ],
-                        "fullNameTabs": [
-                            {
-                                "anchorString": "signer1name",
-                                "anchorYOffset": "-6",
-                                "fontSize": "Size12",
-                                "name": "Full Name",
-                                "recipientId": "1",
-                                "tabLabel": "Full Name"
-                            }
-                        ],
-                        "signHereTabs": [
-                            {
-                                "anchorString": "signer1sig",
-                                "anchorUnits": "mms",
-                                "anchorXOffset": "0",
-                                "anchorYOffset": "0",
-                                "name": "Please sign here",
-                                "optional": "false",
-                                "recipientId": "1",
-                                "scaleValue": 1,
-                                "tabLabel": "signer1sig"
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "status": "sent"
-    }
-    doc['recipients']['signers'][0]['email'] = 'manish.dwibedy@gmail.com'
-    doc['recipients']['signers'][0]['email'] = 'manish.dwibedy@gmail.com'
-
-
-@app.route('/sign')
-def sign():
     # return 'Hello World!'
     # curl - i - k - X
     # POST - d @ payload.json \
@@ -158,6 +96,7 @@ def sign():
     # "IntegratorKey":"cdd05311-7fe2-40fe-b71b-9c7da37a8bad"}' \
     #               https://demo.docusign.net/restapi/v2/accounts/3915659/envelopes
 
+    # sign()
     url = 'https://demo.docusign.net/restapi/v2/accounts/3915659/envelopes'
     headers = {
         'Accept': 'application/json',
