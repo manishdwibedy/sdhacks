@@ -29,39 +29,50 @@ def signup():
 
 @app.route('/code')
 def code():
+    '''
+    https://genomelink.io/oauth/authorize?redirect_uri=http://127.0.0.1:5000/code&client_id=PftOLTI13hNYN9gl2UOJKzcNTalDBSbPv8ceTevm&response_type=code&scope=report:childhood-intelligence report:hearing-function report:word-reading-ability report:reading-and-spelling-ability report:eye-color
+
+    :return:
+    '''
     user_code = request.args.get('code')
     Config.code = str(user_code)
     return 'Got the code = ' + user_code
 
 @app.route('/access_token')
 def access_token():
+    # token = request.args.get('token')
+    # Config.access_token = token
     url = 'https://genomelink.io/oauth/token'
+    #
+    # '''
+    # curl -X POST -d "client_id=PftOLTI13hNYN9gl2UOJKzcNTalDBSbPv8ceTevm&client_secret=gZj2dfZLoQ9my9Ycss21TQXBnRZSizj3EfOtILu2V4wSBmofvlGejc6I22j4lbMwfkREbivpHG4qU4y6wt2N3Dh1LpozHGhrV3g4ElZYH23xWeWf2LG9OgpAA2t94nqi&grant_type=authorization_code&code=cfyAnQfFsqRlHxkynZO37NjjoGr5Ml&redirect_uri=http://127.0.0.1:5000/code" https://genomelink.io/oauth/token
 
-    '''
-    curl -X POST -d "client_id=PftOLTI13hNYN9gl2UOJKzcNTalDBSbPv8ceTevm&client_secret=gZj2dfZLoQ9my9Ycss21TQXBnRZSizj3EfOtILu2V4wSBmofvlGejc6I22j4lbMwfkREbivpHG4qU4y6wt2N3Dh1LpozHGhrV3g4ElZYH23xWeWf2LG9OgpAA2t94nqi&grant_type=authorization_code&code=zbnHZECvb88GJaWfJ5j6F5b9kUEzuo&redirect_uri=http://127.0.0.1:5000/code" https://genomelink.io/oauth/token
+    # curl -X POST -d "client_id=PftOLTI13hNYN9gl2UOJKzcNTalDBSbPv8ceTevm&client_secret=gZj2dfZLoQ9my9Ycss21TQXBnRZSizj3EfOtILu2V4wSBmofvlGejc6I22j4lbMwfkREbivpHG4qU4y6wt2N3Dh1LpozHGhrV3g4ElZYH23xWeWf2LG9OgpAA2t94nqi&grant_type=authorization_code&code=lvqrfIbDFTKDbXeHXtAl7lN0Vpw9Ji&redirect_uri=http://127.0.0.1:5000/code" https://genomelink.io/oauth/token
 
-    '''
-
-    headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-DocuSign-Authentication': '{ "Username":"8df3037b-aa57-4e00-9c87-58479196d233","Password":"liferocks",   "IntegratorKey":"cdd05311-7fe2-40fe-b71b-9c7da37a8bad"}'
-    }
-
+    #
+    # '''
+    #
+    # headers = {
+    #     'Accept': 'application/json',
+    #     'Content-Type': 'application/json',
+    #     'X-DocuSign-Authentication': '{ "Username":"8df3037b-aa57-4e00-9c87-58479196d233","Password":"liferocks",   "IntegratorKey":"cdd05311-7fe2-40fe-b71b-9c7da37a8bad"}'
+    # }
+    #
     # grant_type = password & client_id = {IntegratorKey} & username = {email} & password = {password} & scope = api
-    payload = {
-        'client_id': 'cdd05311-7fe2-40fe-b71b-9c7da37a8bad',
-        'grant_type': 'password',
-        'username': 'manish.dwibedy@gmail.com',
-        'password': 'liferocks',
-        'scope': 'api',
 
+    payload = {
+        'client_id': 'PftOLTI13hNYN9gl2UOJKzcNTalDBSbPv8ceTevm',
+        'client_secret': 'gZj2dfZLoQ9my9Ycss21TQXBnRZSizj3EfOtILu2V4wSBmofvlGejc6I22j4lbMwfkREbivpHG4qU4y6wt2N3Dh1LpozHGhrV3g4ElZYH23xWeWf2LG9OgpAA2t94nqi',
+        'grant_type': 'authorization_code',
+        'code': Config.code,
+        'redirect_uri': 'http://127.0.0.1:5000/code'
     }
 
     print payload
-    r = requests.post(url, headers = headers, data= payload)
+    r = requests.post(url, data= payload)
 
     return r.text
+    return 'Done '
 
 
 @app.route('/eye-color')
@@ -74,7 +85,7 @@ def eye_color():
     '''
 
     headers = {
-        'Authorization': 'Bearer D0YTHy2JTVM1an0MNLAqgYmDJXYL8f',
+        'Authorization': 'Bearer ' + Config.access_token,
     }
 
     r = requests.get(url, headers = headers)
@@ -105,7 +116,10 @@ def signDoc():
     }
 
     r = requests.post(url, headers=headers, data= open('payload.json', 'rb'))
+    output = json.loads(r.text)
 
+    if output['status'] == 'sent':
+        return render_template('sign-waiver.html')
     return r.text
 
 
