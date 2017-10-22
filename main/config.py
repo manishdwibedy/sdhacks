@@ -11,3 +11,8 @@ SQLALCHEMY_POOL_RECYCLE = 3600
 
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'dsaf0897sfdg45sfdgfdsaqzdf98sdf0a'
+
+class Config:
+    code = ''
+    def __init__(self):
+        pass
