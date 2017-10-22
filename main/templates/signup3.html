@@ -48,28 +48,16 @@
 						<h1>Sign up. For free. Right now.</h1>
 						<section>
 
-							<p>Step 1: Name and Number: </p>
+							<p>Step 3: Get Your Genes: </p>
 							
-							<form method="post">
+							<form method>
 								<div class="row uniform 50%">
 
-									<div class="6u$ 12u$(4)">
-										<input type="text" name="Firstname" id="Firstname" value="" placeholder="First Name" />
-									</div>
-									<div class="6u$ 12u$(4)">
-										<input type="text" name="Lastname" id="Lastname" value="" placeholder="Last Name" />
-									</div>
 									
-									<div class="6u$ 12u$(4)">
-										<input type="tel" name="Phone" id="Phone" value="" placeholder="Phone Number" />
-										<input type="submit" value="Get authentification code"/>
-										<p>{{codeS}}</p>
-									</div>
+									<form action= "https://genomelink.io/oauth/authorize?redirect_uri=http://127.0.0.1:5000/code&client_id=PftOLTI13hNYN9gl2UOJKzcNTalDBSbPv8ceTevm&response_type=code&scope=report:childhood-intelligence report" > 
+										<input type="submit" value="Go to my GenomeLink" />
+									</form>
 
-									<div>
-    									<input type="text" name="pin" pattern="[0-9]{4}" maxlength="4">
-    									<input type="submit" value="Validate">
-									</div>
 							</section>
 								</div>
 							</form>

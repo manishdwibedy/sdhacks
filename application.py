@@ -130,16 +130,21 @@ def goSignUp3():
 
 @app.route('/signup1.html')
 def authCode():
-	codeSent = "Your authentification code has been sent."
-	authenCode = randint(1001, 9999)
-	account_sid = "AC46ae6f5c92b0b000a82a98a92e1cbb82"
-	auth_token = "a9e06fb944cc75071253f9cb0d0b6cde"
-	client = Client(account_sid, auth_token)
-	client.api.account.messages.create(
+
+    codeSent = "Your authentification code has been sent."
+    authenCode = randint(1001, 9999)
+    account_sid = "AC46ae6f5c92b0b000a82a98a92e1cbb82"
+    auth_token = "a9e06fb944cc75071253f9cb0d0b6cde"
+    client = Client(account_sid, auth_token)
+    client.api.account.messages.create(
 		to="+14083488437",
 		from_="+14158818917",
-		body="Thank you for signing up for blujeans! Your authentification code is " + str(authenCode)) 
-	return render_template('signup1.html', codeS = codeSent)
+		body="Thank you for signing up for blujeans! Your authentification code is " + str(authenCode))
+
+    return render_template('signup1.html', codeS = codeSent)
+
+@app.route('/otp.html')
+def authCode():
 
 
 if __name__ == '__main__':

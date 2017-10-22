@@ -21,6 +21,21 @@
 		<link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/style-xlarge.css') }}" />
 		<link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/style.css') }}" />
 
+		<script>
+			function check(val, code) {
+			    if (val.toString() == code){
+			        document.getElementById('continue').style.display = 'block';
+				}
+				else{
+			        document.getElementById('continue').style.display = 'none';
+				}
+            }
+
+            function nextStep() {
+				window.location.href = 'signup2.html';
+
+            }
+		</script>
 	</head>
 	<body>
 
@@ -50,7 +65,7 @@
 
 							<p>Step 1: Name and Number: </p>
 							
-							<form method="post">
+							<form action="/signup-sms">
 								<div class="row uniform 50%">
 
 									<div class="6u$ 12u$(4)">
@@ -63,14 +78,23 @@
 									<div class="6u$ 12u$(4)">
 										<input type="tel" name="Phone" id="Phone" value="" placeholder="Phone Number" />
 										<input type="submit" value="Get authentification code"/>
+										<input type="hidden" value="{{codeS}}">
+										{% if codeS %}
+										  <p>Your code has been sent</p>
+										{% endif %}
 										<p>{{codeS}}</p>
 									</div>
 
-									<div>
-    									<input type="text" name="pin" pattern="[0-9]{4}" maxlength="4">
-    									<input type="submit" value="Validate">
-									</div>
+
+
 							</section>
 								</div>
 							</form>
+
+						<input type="text" id="pin" name="pin" pattern="[0-9]{4}" maxlength="4">
+						<input type="submit" value="Validate" onclick="check({{codeS}}, document.getElementById('pin').value)">
+
+	<input id="continue" type="submit" value="Contiune" onclick="nextStep()" style="display: none">
+
+									</div>
 						</section>

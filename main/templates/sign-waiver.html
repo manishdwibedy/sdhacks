@@ -4,7 +4,7 @@
 	templated.co @templatedco
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 	<head>
 		<meta charset="UTF-8">
 		<title>blujeans.xyz</title>
@@ -21,6 +21,11 @@
 		<link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/style-xlarge.css') }}" />
 		<link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/style.css') }}" />
 
+        <script>
+            function next() {
+                window.location.href = 'eye-color';
+            }
+        </script>
 	</head>
 	<body>
 
@@ -47,6 +52,12 @@
                             Please check your email and sign the waiver.
                             <br>
                             Please check your spam, if you don't find it in the inbox.
+                            <br><br>
+                            <input type="checkbox" id="agreed" name="agreed" value="">
+                            <label for="agreed" style="color:white">I agree to the terms and conditions.</label>
+                            <br>
+
+                            <input type="submit" value="Continue" onclick="next()">
                         </p>
 
                     </section>

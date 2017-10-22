@@ -15,6 +15,7 @@ SECRET_KEY = 'dsaf0897sfdg45sfdgfdsaqzdf98sdf0a'
 class Config:
     code = ''
     access_token = ''
+    otp = ''
 
     def __init__(self):
         pass

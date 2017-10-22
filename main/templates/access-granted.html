@@ -20,7 +20,11 @@
 		<link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/skel.css') }}" />
 		<link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/style-xlarge.css') }}" />
 		<link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='styles/style.css') }}" />
-
+	<script>
+		function next() {
+			window.location.href = 'eye-color';
+        }
+	</script>
 	</head>
 	<body>
 
@@ -41,36 +45,16 @@
 			<section id="main" class="wrapper">
 				<div class="container">
 
-					<header class="major">
-					</header>
+                    <section id="banner">
+				        <h2>Access granted</h2>
+                        <p>
 
-		<!-- Form -->
-						<h1>Sign up. For free. Right now.</h1>
-						<section>
+							<input type="submit" value="Check the report" onclick="next()">
+                        </p>
 
-							<p>Step 1: Name and Number: </p>
-							
-							<form method="post">
-								<div class="row uniform 50%">
+                    </section>
+				</div>
 
-									<div class="6u$ 12u$(4)">
-										<input type="text" name="Firstname" id="Firstname" value="" placeholder="First Name" />
-									</div>
-									<div class="6u$ 12u$(4)">
-										<input type="text" name="Lastname" id="Lastname" value="" placeholder="Last Name" />
-									</div>
-									
-									<div class="6u$ 12u$(4)">
-										<input type="tel" name="Phone" id="Phone" value="" placeholder="Phone Number" />
-										<input type="submit" value="Get authentification code"/>
-										<p>{{codeS}}</p>
-									</div>
-
-									<div>
-    									<input type="text" name="pin" pattern="[0-9]{4}" maxlength="4">
-    									<input type="submit" value="Validate">
-									</div>
-							</section>
-								</div>
-							</form>
-						</section>
+			</section>
+    </body>
+</html>
