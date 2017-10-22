@@ -21,6 +21,9 @@ app.debug=True
 def result():
     return render_template('index.html'); 
 
+@app.route("/sign")
+def signup():
+    return render_template('signup.html');
 
 
 @app.route('/code')
@@ -76,6 +79,68 @@ def eye_color():
     r = requests.get(url, headers = headers)
     output = json.loads(r.text)
     return output['summary']['text']
+
+@app.route('/sign-doc')
+def signDoc():
+    doc = {
+        "documents": [
+            {
+                "documentBase64": "FILE1_BASE64",
+                "documentId": "1",
+                "fileExtension": "pdf",
+                "name": "NDA.pdf"
+            }
+        ],
+        "emailSubject": "Please sign the NDA",
+        "recipients": {
+            "signers": [
+                {
+                    "email": "dwibedy@usc.edu",
+                    "name": "Chris",
+                    "recipientId": "1",
+                    "routingOrder": "1",
+                    "tabs": {
+                        "dateSignedTabs": [
+                            {
+                                "anchorString": "signer1date",
+                                "anchorYOffset": "-6",
+                                "fontSize": "Size12",
+                                "name": "Date Signed",
+                                "recipientId": "1",
+                                "tabLabel": "date_signed"
+                            },
+                        ],
+                        "fullNameTabs": [
+                            {
+                                "anchorString": "signer1name",
+                                "anchorYOffset": "-6",
+                                "fontSize": "Size12",
+                                "name": "Full Name",
+                                "recipientId": "1",
+                                "tabLabel": "Full Name"
+                            }
+                        ],
+                        "signHereTabs": [
+                            {
+                                "anchorString": "signer1sig",
+                                "anchorUnits": "mms",
+                                "anchorXOffset": "0",
+                                "anchorYOffset": "0",
+                                "name": "Please sign here",
+                                "optional": "false",
+                                "recipientId": "1",
+                                "scaleValue": 1,
+                                "tabLabel": "signer1sig"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "status": "sent"
+    }
+    doc['recipients']['signers'][0]['email'] = 'manish.dwibedy@gmail.com'
+    doc['recipients']['signers'][0]['email'] = 'manish.dwibedy@gmail.com'
 
 
 @app.route('/sign')
